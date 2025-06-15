@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 11:16:07 by mzutter           #+#    #+#             */
-/*   Updated: 2025/06/15 14:11:41 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/06/15 14:18:25 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static t_shell	*init_shell(t_shell *shell, char **envp)
 	return (shell);
 }
 
-static void ft_parsing(char *input, t_shell *shell)
+static void	ft_parsing(char *input, t_shell *shell)
 {
 	int	i;
 
@@ -73,12 +73,12 @@ static void ft_parsing(char *input, t_shell *shell)
 static void	minishell_loop(t_shell *shell)
 {
 	char	*input;
-	
+
 	while (1)
 	{
 		input = prompt(shell);
 		if (input == NULL)
-			continue;
+			continue ;
 		ft_parsing(input, shell);
 		// [EXEC PLACEHOLDER]
 		free_list(&shell->token);
@@ -88,7 +88,7 @@ static void	minishell_loop(t_shell *shell)
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell	*shell;
-	
+
 	(void)argc;
 	(void)argv;
 	shell = NULL;
