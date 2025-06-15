@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 22:32:36 by sradosav          #+#    #+#             */
-/*   Updated: 2025/06/15 12:43:59 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/06/15 14:39:14 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_pwd(char **str, t_shell *shell)
 {
 	char	cwd[1024];
 
-	update_or_add("_", str[ft_strsize(str) - 1], shell->env, 0);
+	update_or_add("_", str[count_strings(str) - 1], shell->env, 0);
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
 	{
 		printf("%s\n", cwd);

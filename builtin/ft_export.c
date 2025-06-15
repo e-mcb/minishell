@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 22:32:04 by sradosav          #+#    #+#             */
-/*   Updated: 2025/06/15 12:56:49 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/06/15 14:39:58 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	ft_print_export(t_shell *shell)
 			ft_write_export(iter->var);
 		iter = iter->next;
 	}
-	free_list(&env_copy);
+	free_env_list(&env_copy);
 }
 
 void	ft_export_vars(char **str, t_shell *shell)
@@ -113,7 +113,7 @@ void	ft_export(char **str, t_shell *shell)
 {
 	int	str_size;
 
-	str_size = ft_strsize(str);
+	str_size = count_strings(str);
 	if (!str[1])
 	{
 		update_or_add("_", str[str_size - 1], shell->env, 0);

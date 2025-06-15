@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 22:30:55 by sradosav          #+#    #+#             */
-/*   Updated: 2025/06/15 13:17:33 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/06/15 14:29:47 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static t_envvar	*create_env_var(char *str, int exported)
 	return (node);
 }
 
-static int	add_env_var(t_envvar **head, char *str, int exported)
+int	add_env_var(t_envvar **head, char *str, int exported)
 {
 	t_envvar	*new_node;
 	t_envvar	*current;

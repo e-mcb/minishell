@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 20:04:22 by mzutter           #+#    #+#             */
-/*   Updated: 2025/06/15 11:12:55 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/06/15 14:36:43 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,39 @@ void	whitespace_to_space(char *str)
 			str[i] = ' ';
 		i++;
 	}
+}
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] || s2[i])
+	{
+		if (s1[i] != s2[i])
+			return (s1[i] - s2[i]);
+		i++;
+	}
+	return (0);
+}
+
+char	*ft_strndup(const char *s, size_t n)
+{
+	size_t	i;
+	char	*copy;
+
+	i = 0;
+	while (s[i] && i < n)
+		i++;
+	copy = (char *)malloc(sizeof(char) * (i + 1));
+	if (!copy)
+		return (NULL);
+	i = 0;
+	while (s[i] && i < n)
+	{
+		copy[i] = s[i];
+		i++;
+	}
+	copy[i] = '\0';
+	return (copy);
 }

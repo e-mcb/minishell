@@ -21,6 +21,7 @@ SRCS = main.c \
 	$(UTILS_DIR)/string_utils2.c \
 	$(UTILS_DIR)/split_with_sep.c \
 	$(UTILS_DIR)/env_utils.c \
+	$(UTILS_DIR)/env_utils2.c \
 	$(TOKENIZER_DIR)/tokenizer.c \
 	$(TOKENIZER_DIR)/split2.c \
 	$(TOKENIZER_DIR)/refine_token.c \

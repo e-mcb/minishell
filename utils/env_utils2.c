@@ -6,11 +6,11 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 12:46:44 by mzutter           #+#    #+#             */
-/*   Updated: 2025/06/15 13:44:37 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/06/15 14:41:50 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "../includes/minishell.h"
 
 t_envvar	*copy_env_list(t_envvar *env)
 {

@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 22:31:52 by sradosav          #+#    #+#             */
-/*   Updated: 2025/06/15 13:39:04 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/06/15 14:32:24 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_env(char **str, t_shell *shell)
 	int			str_size;
 	t_envvar	*env_copy;
 
-	str_size = ft_strsize(str);
+	str_size = count_strings(str);
 	if (str_size > 1)
 	{
 		ft_putstr_fd("minishell: env: too many arguments or options\n", 2);

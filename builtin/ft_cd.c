@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 22:30:37 by sradosav          #+#    #+#             */
-/*   Updated: 2025/06/15 11:50:05 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/06/15 14:32:07 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,16 @@ void	ft_cd(char **str, t_shell *shell)
 			ft_putstr_fd("minishell: cd: missing argument\n", 2);
 		else
 			ft_putstr_fd("minishell: cd: too many arguments\n", 2);
-		update_or_add("_", str[ft_strsize(str) - 1], shell->env, 0);
+		update_or_add("_", str[count_strings(str) - 1], shell->env, 0);
 		return ;
 	}
 	if (chdir(str[1]) != 0)
 	{
 		perror("minishell: cd");
-		update_or_add("_", str[ft_strsize(str) - 1], shell->env, 0);
+		update_or_add("_", str[count_strings(str) - 1], shell->env, 0);
 		return ;
 	}
-	update_or_add("_", str[ft_strsize(str) - 1], shell->env, 0);
+	update_or_add("_", str[count_strings(str) - 1], shell->env, 0);
 	update_or_add("OLDPWD", pwd, shell->env, 0);
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
 		update_or_add("PWD", cwd, shell->env, 0);

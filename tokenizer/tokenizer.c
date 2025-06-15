@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 15:14:08 by mzutter           #+#    #+#             */
-/*   Updated: 2025/06/15 11:14:26 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/06/15 14:30:38 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ static void	handle_word_boundaries(int i, t_quote_state *state,
 	{
 		tmp = ft_substrword(ctx->str, state->w_start, i);
 		if (tmp == NULL)
-			ft_exit(NULL, shell);
+			ft_clean_exit(NULL, shell);
 		checker = add_token(shell, tmp, WORD, ctx->rank);
 		if (checker == 1)
-			ft_exit(tmp, shell);
+			ft_clean_exit(tmp, shell);
 		state->w_start = -1;
 		free(tmp);
 	}
@@ -63,19 +63,19 @@ static void	handle_single_operator(int i, t_shell *shell, t_input_context *ctx)
 
 	tmp = ft_substrword(ctx->str, i, i + 1);
 	if (tmp == NULL)
-		ft_exit(NULL, shell);
+		ft_clean_exit(NULL, shell);
 	if (ctx->str[i] == '<')
 		checker = add_token(shell, tmp, IN, ctx->rank);
 	if (checker == 1)
-		ft_exit(tmp, shell);
+		ft_clean_exit(tmp, shell);
 	else if (ctx->str[i] == '>')
 		checker = add_token(shell, tmp, OUT, ctx->rank);
 	if (checker == 1)
-		ft_exit(tmp, shell);
+		ft_clean_exit(tmp, shell);
 	else if (ctx->str[i] == '|')
 		checker = add_token(shell, tmp, PIPE, ctx->rank);
 	if (checker == 1)
-		ft_exit(tmp, shell);
+		ft_clean_exit(tmp, shell);
 	free(tmp);
 }
 
@@ -91,15 +91,15 @@ static bool	handle_double_operator(int i, t_shell *shell, t_input_context *ctx)
 	{
 		tmp = ft_substrword(ctx->str, i, i + 2);
 		if (tmp == NULL)
-			ft_exit(NULL, shell);
+			ft_clean_exit(NULL, shell);
 		if (ctx->str[i] == '<')
 			checker = add_token(shell, tmp, HDOC, ctx->rank);
 		if (checker == 1)
-			ft_exit(tmp, shell);
+			ft_clean_exit(tmp, shell);
 		else
 			checker = add_token(shell, tmp, APPEND, ctx->rank);
 		if (checker == 1)
-			ft_exit(tmp, shell);
+			ft_clean_exit(tmp, shell);
 		free(tmp);
 		return (true);
 	}

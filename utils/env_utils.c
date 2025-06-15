@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 11:43:39 by mzutter           #+#    #+#             */
-/*   Updated: 2025/06/15 13:46:45 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/06/15 14:29:21 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,10 @@ int	env_var_exists(char *var, t_envvar *env)
 void	update_env(char *var, char *str, t_envvar *env)
 {
 	size_t		len;
-	int			i;
 	char		*full_var;
 	char		*temp;
 	t_envvar	*copy_env;
 
-	i = 0;
 	full_var = ft_strjoin(var, "=");
 	len = ft_strlen(full_var);
 	copy_env = env;

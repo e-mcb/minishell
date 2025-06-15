@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 11:16:07 by mzutter           #+#    #+#             */
-/*   Updated: 2025/06/15 14:18:25 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/06/15 14:25:21 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	*prompt(t_shell *shell)
 	if (input == NULL)
 	{
 		ft_putstr_fd("Goodbye\n", 2);
-		ft_exit(NULL, shell);
+		ft_clean_exit(NULL, shell);
 	}
 	if (input[0] != '\0')
 		add_history(input);
@@ -37,14 +37,14 @@ static t_shell	*init_shell(t_shell *shell, char **envp)
 {
 	shell = malloc(sizeof(t_shell));
 	if (shell == NULL)
-		ft_exit(NULL, NULL);
+		ft_clean_exit(NULL, NULL);
 	shell->env_arr = NULL;
 	shell->splitted = NULL;
 	shell->token = NULL;
 	shell->env = ft_env_to_list(envp);
 	shell->exit_status = 0;
 	if (shell->env == NULL)
-		ft_exit(NULL, shell);
+		ft_clean_exit(NULL, shell);
 	return (shell);
 }
 
@@ -53,7 +53,7 @@ static void	ft_parsing(char *input, t_shell *shell)
 	int	i;
 
 	i = 0;
-	whitespace_to_space(&input);
+	whitespace_to_space(input);
 	shell->splitted = ft_split2(input, ' ');
 	if (shell->splitted == NULL)
 		ft_clean_exit(input, shell);

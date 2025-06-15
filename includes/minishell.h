@@ -6,7 +6,7 @@
 /*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 13:31:47 by mzutter           #+#    #+#             */
-/*   Updated: 2025/06/15 14:06:38 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/06/15 14:46:30 by mzutter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ typedef struct s_input_context
 
 typedef struct s_envvar
 {
-	char		*var;
-	int			exported;
-	t_envvar	*next;
+	char			*var;
+	int				exported;
+	struct s_envvar	*next;
 }	t_envvar;
 
 typedef struct s_shell
@@ -122,6 +122,8 @@ char		*strndup_custom(const char *s, size_t n);
 int			count_strings(char **arr);
 void		ft_init_var(size_t *i, size_t *count, bool *in_quotes, char *c);
 void		whitespace_to_space(char *str);
+int			ft_strcmp(char *s1, char *s2);
+char		*ft_strndup(const char *s, size_t n);
 
 //misc utils
 void		*ft_realloc(void *ptr, int old_size, int new_size);
@@ -134,6 +136,8 @@ char		*ft_getenv(char *var, t_envvar *env);
 t_envvar	*ft_env_to_list(char **envp);
 t_envvar	*copy_env_list(t_envvar *env);
 void		ft_sort_env_list(t_envvar *head);
+void		free_env_list(t_envvar **head);
+int			add_env_var(t_envvar **head, char *str, int exported);
 void		free_env_list(t_envvar **head);
 
 //parsing utils
@@ -153,8 +157,6 @@ int			add_token(t_shell *shell, char *str, t_token_type type, int rank);
 void		ft_free_str_array(char **arr);
 void		free_list(t_token **head);
 void		ft_clean_exit(char *input, t_shell *shell);
-
-char		*prompt(t_shell *shell);
 
 //expand
 void		expand(t_shell *shell);
