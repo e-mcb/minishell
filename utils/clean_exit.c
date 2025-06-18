@@ -6,7 +6,7 @@
 /*   By: sradosav <sradosav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 21:18:02 by mzutter           #+#    #+#             */
-/*   Updated: 2025/06/18 20:57:51 by sradosav         ###   ########.fr       */
+/*   Updated: 2025/06/18 21:19:58 by sradosav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,13 @@ void	ft_free_str_array(char **arr)
 	free(arr);
 }
 
-void	ft_clean_exit(char *input, t_shell *shell)
+void	ft_clean_exit(char *input, t_shell *shell,
+	char *str_to_free, char **arr_to_free)
 {
+	if (str_to_free)
+		free(str_to_free);
+	if (arr_to_free)
+		ft_free_str_array(arr_to_free);
 	if (input)
 		free(input);
 	if (shell->env)
