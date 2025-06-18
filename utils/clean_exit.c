@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sradosav <sradosav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 21:18:02 by mzutter           #+#    #+#             */
-/*   Updated: 2025/06/15 14:47:28 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/06/18 20:57:51 by sradosav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_clean_exit(char *input, t_shell *shell)
 {
 	if (input)
 		free(input);
-	if(shell->env)
+	if (shell->env)
 		free_env_list(&(shell->env));
 	if (shell->env_arr)
 		ft_free_str_array(shell->env_arr);
@@ -57,6 +57,5 @@ void	ft_clean_exit(char *input, t_shell *shell)
 		free_list(&(shell->token));
 	if (shell)
 		free(shell);
-		
 	exit(0);
 }

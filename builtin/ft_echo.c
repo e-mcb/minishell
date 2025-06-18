@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sradosav <sradosav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 22:31:46 by sradosav          #+#    #+#             */
-/*   Updated: 2025/06/15 11:50:17 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/06/18 19:40:10 by sradosav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	ft_echo(char **str, t_shell *shell)
 	}
 	if (newline)
 		printf("\n");
-	update_or_add("_", str[i - 1], shell->env, 0);
+	update_or_add("_", str[i - 1], shell, 0);
 	shell->exit_status = 0;
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sradosav <sradosav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 22:31:52 by sradosav          #+#    #+#             */
-/*   Updated: 2025/06/15 14:32:24 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/06/18 19:42:20 by sradosav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_env(char **str, t_shell *shell)
 	if (str_size > 1)
 	{
 		ft_putstr_fd("minishell: env: too many arguments or options\n", 2);
-		update_or_add("_", str[str_size - 1], shell->env, 0);
+		update_or_add("_", str[str_size - 1], shell, 0);
 		shell->exit_status = 1;
 	}
 	else
@@ -41,7 +41,7 @@ void	ft_env(char **str, t_shell *shell)
 			}
 			env_copy = env_copy->next;
 		}
-		update_or_add("_", str[str_size - 1], shell->env, 0);
+		update_or_add("_", str[str_size - 1], shell, 0);
 		shell->exit_status = 0;
 	}
 }

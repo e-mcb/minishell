@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dup_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sradosav <sradosav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 22:30:55 by sradosav          #+#    #+#             */
-/*   Updated: 2025/06/15 14:29:47 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/06/18 19:39:37 by sradosav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,32 +29,32 @@ void	free_env_list(t_envvar **head)
 	*head = NULL;
 }
 
-static t_envvar	*create_env_var(char *str, int exported)
+static t_envvar	*create_env_var(char *str, int exported, t_shell *shell)
 {
 	t_envvar	*node;
 
 	node = malloc(sizeof(t_envvar));
 	if (!node)
-		return (NULL);
+		ft_clean_exit(NULL, shell);
 	node->var = ft_strdup(str);
 	if (!node->var)
 	{
 		free(node);
-		return (NULL);
+		ft_clean_exit(NULL, shell);
 	}
 	node->exported = exported;
 	node->next = NULL;
 	return (node);
 }
 
-int	add_env_var(t_envvar **head, char *str, int exported)
+int	add_env_var(t_envvar **head, char *str, int exported, t_shell *shell)
 {
 	t_envvar	*new_node;
 	t_envvar	*current;
 
 	new_node = create_env_var(str, exported);
 	if (!new_node)
-		return (0);
+		ft_clean_exit(NULL, shell);
 	if (!*head)
 	{
 		*head = new_node;

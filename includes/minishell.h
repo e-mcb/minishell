@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzutter <mzutter@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sradosav <sradosav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 13:31:47 by mzutter           #+#    #+#             */
-/*   Updated: 2025/06/15 14:46:30 by mzutter          ###   ########.fr       */
+/*   Updated: 2025/06/18 19:37:01 by sradosav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,15 +129,15 @@ char		*ft_strndup(const char *s, size_t n);
 void		*ft_realloc(void *ptr, int old_size, int new_size);
 
 //env utils
-int			env_var_exists(char *var, t_envvar *env);
-void		update_env(char *var, char *str, t_envvar *env);
-void		update_or_add(char *var, char *str, t_envvar *env, int exported);
-char		*ft_getenv(char *var, t_envvar *env);
+int			env_var_exists(char *var, t_shell *shell);
+void		update_env(char *var, char *str, t_shell *shell);
+void		update_or_add(char *var, char *str, t_shell *shell, int exported);
+char		*ft_getenv(char *var, t_shell *shell);
 t_envvar	*ft_env_to_list(char **envp);
 t_envvar	*copy_env_list(t_envvar *env);
 void		ft_sort_env_list(t_envvar *head);
 void		free_env_list(t_envvar **head);
-int			add_env_var(t_envvar **head, char *str, int exported);
+int			add_env_var(t_envvar **head, char *str, int exported, t_shell *s);
 void		free_env_list(t_envvar **head);
 
 //parsing utils
