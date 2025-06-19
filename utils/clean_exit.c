@@ -43,6 +43,27 @@ void	ft_free_str_array(char **arr)
 	free(arr);
 }
 
+void	free_exec_list(t_exec **exec)
+{
+	t_exec	*next;
+
+	if (!exec || !*exec)
+		return ;
+	while (*exec)
+	{
+		next = (*exec)->next;
+		if ((*exec)->arr)
+			ft_free_str_array((*exec)->arr);
+		free((*exec)->heredoc);
+		if ((*exec)->fd_in > 0)
+			close((*exec)->fd_in);
+		if ((*exec)->fd_out > 0)
+			close((*exec)->fd_out);
+		free(*exec);
+		*exec = next;
+	}
+}
+
 void	ft_clean_exit(char *input, t_shell *shell,
 	char *str_to_free, char **arr_to_free)
 {
@@ -60,6 +81,8 @@ void	ft_clean_exit(char *input, t_shell *shell,
 		ft_free_str_array(shell->splitted);
 	if (shell->token)
 		free_list(&(shell->token));
+	if (shell->exec)
+		free_exec_list(&(shell->exec));
 	if (shell)
 		free(shell);
 	exit(0);

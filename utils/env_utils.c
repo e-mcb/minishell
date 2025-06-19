@@ -22,7 +22,7 @@ int	env_var_exists(char *var, t_shell *shell)
 		return (0);
 	var_equal = ft_strjoin(var, "=");
 	if (!var_equal)
-		ft_clean_exit(NULL, shell);
+		ft_clean_exit(NULL, shell, NULL, NULL);
 	len = ft_strlen(var);
 	copy_env = shell->env;
 	while (copy_env)
@@ -39,28 +39,25 @@ int	env_var_exists(char *var, t_shell *shell)
 
 void	update_env(char *var, char *str, t_shell *shell)
 {
-	size_t		len;
 	char		*full_var;
-	char		*temp;
+	char		*new_var;
 	t_envvar	*copy_env;
+	size_t		len;
 
 	full_var = ft_strjoin(var, "=");
 	if (!full_var)
-		ft_clean_exit(NULL, shell);
+		ft_clean_exit(NULL, shell, NULL, NULL);
 	len = ft_strlen(full_var);
 	copy_env = shell->env;
 	while (copy_env)
 	{
-		if (ft_strncmp(copy_env->var, full_var, len) == 0)
+		if (envvar_match(copy_env->var, var, len, full_var))
 		{
 			free(copy_env->var);
-			temp = ft_strjoin("=", str);
-			if (!temp)
-				ft_clean_exit(full_var, shell);
-			copy_env->var = ft_strjoin(var, temp);
-			free(temp);
-			if (!copy_env->var)
-				ft_clean_exit(full_var, shell);
+			new_var = ft_strjoin(full_var, str);
+			if (!new_var)
+				ft_clean_exit(NULL, shell, full_var, NULL);
+			copy_env->var = new_var;
 			free(full_var);
 			return ;
 		}
@@ -82,11 +79,11 @@ void	update_or_add(char *var, char *str, t_shell *shell, int exported)
 	{
 		temp = ft_strjoin(var, "=");
 		if (!temp)
-			ft_clean_exit(NULL, shell);
+			ft_clean_exit(NULL, shell, NULL, NULL);
 		temp2 = ft_strjoin(temp, str);
 		free(temp);
 		if (!temp2)
-			ft_clean_exit(NULL, shell);
+			ft_clean_exit(NULL, shell, NULL, NULL);
 		add_env_var(&(shell->env), temp2, exported, shell);
 		free(temp2);
 	}

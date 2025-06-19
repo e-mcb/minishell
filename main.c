@@ -20,7 +20,7 @@ static char	*prompt(t_shell *shell)
 	if (input == NULL)
 	{
 		ft_putstr_fd("Goodbye\n", 2);
-		ft_clean_exit(NULL, shell);
+		ft_clean_exit(NULL, shell, NULL, NULL);
 	}
 	if (input[0] != '\0')
 		add_history(input);
@@ -37,14 +37,15 @@ static t_shell	*init_shell(t_shell *shell, char **envp)
 {
 	shell = malloc(sizeof(t_shell));
 	if (shell == NULL)
-		ft_clean_exit(NULL, NULL);
+		ft_clean_exit(NULL, NULL, NULL, NULL);
 	shell->env_arr = NULL;
 	shell->splitted = NULL;
 	shell->token = NULL;
-	shell->env = ft_env_to_list(envp);
+	shell->exec = NULL;
+	shell->env = ft_env_to_list(envp, shell);
 	shell->exit_status = 0;
 	if (shell->env == NULL)
-		ft_clean_exit(NULL, shell);
+		ft_clean_exit(NULL, shell, NULL, NULL);
 	return (shell);
 }
 
@@ -56,7 +57,7 @@ static void	ft_parsing(char *input, t_shell *shell)
 	whitespace_to_space(input);
 	shell->splitted = ft_split2(input, ' ');
 	if (shell->splitted == NULL)
-		ft_clean_exit(input, shell);
+		ft_clean_exit(input, shell, NULL, NULL);
 	free (input);
 	while (shell->splitted[i])
 	{

@@ -35,6 +35,7 @@ int	ft_is_number(const char *str)
 	return (1);
 }
 
+// free(shell) aussi ??
 void	free_before_exit(t_shell *shell, void *ptr_a, void *ptr_b)
 {
 	(void) ptr_a;
@@ -49,6 +50,8 @@ void	free_before_exit(t_shell *shell, void *ptr_a, void *ptr_b)
 			ft_free_str_array(shell->splitted);
 		if (shell->token)
 			free_list(&(shell->token));
+		if (shell->exec)
+			free_exec_list(&(shell->exec));
 	}
 }
 

@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-t_envvar	*copy_env_list(t_envvar *env)
+t_envvar	*copy_env_list(t_envvar *env, t_shell *shell)
 {
 	t_envvar	*copy;
 	t_envvar	*tail;
@@ -24,8 +24,12 @@ t_envvar	*copy_env_list(t_envvar *env)
 	{
 		new_node = malloc(sizeof(t_envvar));
 		if (!new_node)
-			return (NULL);
+			return (free_env_list(&copy),
+				ft_clean_exit(NULL, shell, NULL, NULL), NULL);
 		new_node->var = ft_strdup(env->var);
+		if (!new_node->var)
+			return (free(new_node), free_env_list(&copy),
+				ft_clean_exit(NULL, shell, NULL, NULL), NULL);
 		new_node->next = NULL;
 		if (!copy)
 			copy = new_node;
@@ -62,4 +66,26 @@ void	ft_sort_env_list(t_envvar *head)
 			ptr = ptr->next;
 		}
 	}
+}
+
+int	envvar_match(char *env_var, char *var, size_t len, char *full_var)
+{
+	return (ft_strncmp(env_var, full_var, len) == 0 
+		|| ft_strcmp(env_var, var) == 0);
+}
+
+int	is_valid_identifier(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!str || (!ft_isalpha(str[0]) && str[0] != '_'))
+		return (0);
+	while (str[i] && str[i] != '=')
+	{
+		if (!ft_isalnum(str[i]) && str[i] != '_')
+			return (0);
+		i++;
+	}
+	return (1);
 }

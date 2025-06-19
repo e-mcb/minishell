@@ -23,7 +23,7 @@ void	ft_pwd(char **str, t_shell *shell)
 {
 	char	cwd[1024];
 
-	update_or_add("_", str[count_strings(str) - 1], shell->env, 0);
+	update_or_add("_", str[count_strings(str) - 1], shell, 0);
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
 	{
 		printf("%s\n", cwd);

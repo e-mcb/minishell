@@ -49,7 +49,7 @@ void	ft_unset(char **str, t_shell *shell)
 		delete_node(str[i], &shell->env);
 		i++;
 	}
-	update_or_add("_", str[i - 1], shell->env, 0);
+	update_or_add("_", str[i - 1], shell, 0);
 	shell->exit_status = 0;
 }
 

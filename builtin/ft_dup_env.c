@@ -35,12 +35,12 @@ static t_envvar	*create_env_var(char *str, int exported, t_shell *shell)
 
 	node = malloc(sizeof(t_envvar));
 	if (!node)
-		ft_clean_exit(NULL, shell);
+		ft_clean_exit(NULL, shell, NULL, NULL);
 	node->var = ft_strdup(str);
 	if (!node->var)
 	{
 		free(node);
-		ft_clean_exit(NULL, shell);
+		ft_clean_exit(NULL, shell, NULL, NULL);
 	}
 	node->exported = exported;
 	node->next = NULL;
@@ -52,9 +52,12 @@ int	add_env_var(t_envvar **head, char *str, int exported, t_shell *shell)
 	t_envvar	*new_node;
 	t_envvar	*current;
 
-	new_node = create_env_var(str, exported);
+	new_node = create_env_var(str, exported, shell);
 	if (!new_node)
-		ft_clean_exit(NULL, shell);
+	{
+		free_env_list(head);
+		ft_clean_exit(NULL, shell, NULL, NULL);
+	}
 	if (!*head)
 	{
 		*head = new_node;
@@ -67,7 +70,8 @@ int	add_env_var(t_envvar **head, char *str, int exported, t_shell *shell)
 	return (1);
 }
 
-t_envvar	*ft_env_to_list(char **envp)
+//LE DERNIER IF EST INUTILE
+t_envvar	*ft_env_to_list(char **envp, t_shell *shell)
 {
 	t_envvar	*env;
 	int			i;
@@ -82,7 +86,7 @@ t_envvar	*ft_env_to_list(char **envp)
 		exported = 1;
 		if (strncmp(envp[i], "_=", 2) == 0)
 			exported = 0;
-		if (!add_env_var(&env, envp[i], exported))
+		if (!add_env_var(&env, envp[i], exported, shell))
 		{
 			free_env_list(&env);
 			return (NULL);

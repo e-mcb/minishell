@@ -79,6 +79,16 @@ typedef struct s_envvar
 	struct s_envvar	*next;
 }	t_envvar;
 
+typedef struct s_exec
+{
+	char	**arr;
+	int		fd_in;
+	int		fd_out;
+	char	*heredoc;
+	t_exec	*next;
+	//PID?
+}	t_exec;
+
 typedef struct s_shell
 {
 	char		**env_arr;
@@ -86,6 +96,7 @@ typedef struct s_shell
 	t_token		*token;
 	char		**splitted;
 	int			exit_status;
+	t_exec		*exec;
 }	t_shell;
 
 typedef struct s_expand
@@ -133,12 +144,14 @@ int			env_var_exists(char *var, t_shell *shell);
 void		update_env(char *var, char *str, t_shell *shell);
 void		update_or_add(char *var, char *str, t_shell *shell, int exported);
 char		*ft_getenv(char *var, t_shell *shell);
-t_envvar	*ft_env_to_list(char **envp);
-t_envvar	*copy_env_list(t_envvar *env);
+t_envvar	*ft_env_to_list(char **envp, t_shell *shell);
+t_envvar	*copy_env_list(t_envvar *env, t_shell *shell);
 void		ft_sort_env_list(t_envvar *head);
 void		free_env_list(t_envvar **head);
 int			add_env_var(t_envvar **head, char *str, int exported, t_shell *s);
 void		free_env_list(t_envvar **head);
+int			envvar_match(char *env_var, char *var, size_t len, char *full_var);
+int			is_valid_identifier(char *str);
 
 //parsing utils
 int			ft_has_invalid_quotes(const char *str);
@@ -156,7 +169,8 @@ int			add_token(t_shell *shell, char *str, t_token_type type, int rank);
 //clean exit
 void		ft_free_str_array(char **arr);
 void		free_list(t_token **head);
-void		ft_clean_exit(char *input, t_shell *shell);
+void		ft_clean_exit(char *input, t_shell *shell, char *str, char **arr);
+void		free_exec_list(t_exec **exec);
 
 //expand
 void		expand(t_shell *shell);

@@ -40,28 +40,12 @@ void	ft_write_export(char *str)
 	write(1, "\n", 1);
 }
 
-int	is_valid_identifier(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (!str || (!ft_isalpha(str[0]) && str[0] != '_'))
-		return (0);
-	while (str[i] && str[i] != '=')
-	{
-		if (!ft_isalnum(str[i]) && str[i] != '_')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
 void	ft_print_export(t_shell *shell)
 {
 	t_envvar	*env_copy;
 	t_envvar	*iter;
 
-	env_copy = copy_env_list(shell->env);
+	env_copy = copy_env_list(shell, shell);
 	ft_sort_env_list(env_copy);
 	iter = env_copy;
 	while (iter)
@@ -71,6 +55,26 @@ void	ft_print_export(t_shell *shell)
 		iter = iter->next;
 	}
 	free_env_list(&env_copy);
+}
+
+void	handle_valid_export(char *str, t_shell *shell)
+{
+	int		var_len;
+	char	*var;
+	char	*value;
+
+	var_len = 0;
+	while (str[var_len] && str[var_len] != '=')
+		var_len++;
+	var = ft_strndup(str, var_len);
+	if (!var)
+		ft_clean_exit(NULL, shell, NULL, NULL);
+	if (ft_strchr(str, '='))
+		value = ft_strchr(str, '=') + 1;
+	else
+		value = "";
+	update_or_add(var, value, shell, 1);
+	free(var);
 }
 
 void	ft_export_vars(char **str, t_shell *shell)
@@ -89,20 +93,7 @@ void	ft_export_vars(char **str, t_shell *shell)
 			shell->exit_status = 1;
 		}
 		else
-		{
-			var_len = 0;
-			while (str[i][var_len] && str[i][var_len] != '=')
-				var_len++;
-			var = ft_strndup(str[i], var_len);
-			if (!var)
-				return ;
-			if (ft_strchr(str[i], '='))
-				value = ft_strchr(str[i], '=') + 1;
-			else
-				value = "";
-			update_or_add(var, value, shell->env, 1);
-			free(var);
-		}
+			handle_valid_export(str[i], shell);
 		i++;
 	}
 }
@@ -116,14 +107,14 @@ void	ft_export(char **str, t_shell *shell)
 	str_size = count_strings(str);
 	if (!str[1])
 	{
-		update_or_add("_", str[str_size - 1], shell->env, 0);
+		update_or_add("_", str[str_size - 1], shell, 0);
 		ft_print_export(shell);
 		shell->exit_status = 0;
 	}
 	else
 	{
 		shell->exit_status = 0;
-		update_or_add("_", str[str_size - 1], shell->env, 0);
+		update_or_add("_", str[str_size - 1], shell, 0);
 		ft_export_vars(str, shell);
 	}
 }
